@@ -14,7 +14,7 @@ ENV PATH=/workspaces/btlab/bin:${PATH}
 # Install base packages
 RUN apt update && \
     apt install -y --no-install-recommends \
-    curl jq
+    curl jq python3-pip
 
 # Set zsh as default shell
 RUN chsh -s /usr/bin/zsh root && \
@@ -22,3 +22,8 @@ RUN chsh -s /usr/bin/zsh root && \
     echo 'export GPG_TTY=$(tty)' >> /etc/zsh/zshenv && \
     sed -i '/^ZSH_THEME/c\ZSH_THEME="robbyrussell"' /root/.zshrc && \
     sed -i '/^ZSH_THEME/c\ZSH_THEME="robbyrussell"' /home/vscode/.zshrc
+
+# Install Rust
+WORKDIR /home/vscode
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/home/vscode/.cargo/bin:${PATH}"
