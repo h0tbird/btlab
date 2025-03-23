@@ -1,0 +1,16 @@
+{
+	"name": "btlab",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"options": [
+			"--tag", "ghcr.io/h0tbird/btlab/devcontainer:latest"
+		]
+	},
+	"mounts": [
+		"type=bind,source=/run/host-services/ssh-auth.sock,target=/ssh-agent"
+	],
+	"containerEnv": {
+		"GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+		"GITHUB_USER": "${localEnv:GITHUB_USER}"
+	}
+}
